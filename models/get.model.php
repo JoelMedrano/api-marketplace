@@ -10,9 +10,9 @@ class GetModel{
 
         $stmt = Connection::connect()->prepare("SELECT * FROM $table");
 
-        $stmt -> exeute();
+        $stmt -> execute();
 
-        return $stmt -> fetchAll();
+        return $stmt -> fetchAll(PDO::FETCH_CLASS);
 
     }
 
