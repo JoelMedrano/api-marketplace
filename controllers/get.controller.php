@@ -42,6 +42,16 @@ class GetController{
 
 	}
 
+	//*Peticiones GET para el buscador
+	public function getSearchData($tabla, $linkTo, $equalTo){
+
+        $response = GetModel::getSearchData($tabla, $linkTo, $equalTo);
+
+		$return = new GetController();
+		$return -> fncResponse($response, "getSearchData");
+
+    }
+
 	//todo: Respuestas del controlador
 	public function fncResponse($response, $method){
 

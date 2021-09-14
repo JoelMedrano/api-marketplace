@@ -35,7 +35,9 @@ if(count($routesArray) == 0){
         //?Peticiones GET entre tablas relacionadas sin filtro
         }else if(   isset($_GET["rel"]) && 
                     isset($_GET["type"]) && 
-                    explode("?", $routesArray[1])[0] == "relations"){
+                    explode("?", $routesArray[1])[0] == "relations" && 
+                    !isset($_GET["linkTo"]) && 
+                    !isset($_GET["equalTo"])){
 
             $response = new GetController();
             $response -> getRelData($_GET["rel"], $_GET["type"]);
@@ -50,9 +52,16 @@ if(count($routesArray) == 0){
             $response = new GetController();
             $response -> getRelFilterData($_GET["rel"], $_GET["type"], $_GET["linkTo"], $_GET["equalTo"]);
 
+        //!Peticiones GET para el buscador
+        }else if(   isset($_GET["linkTo"]) && 
+                    isset($_GET["search"])){
+
+            $response = new GetController();
+            $response -> getSearchData(explode("?", $routesArray[1])[0], $_GET["linkTo"], $_GET["search"]);
+
         }else{
 
-            //!Peticiones sin filtro
+            //todo:Peticiones sin filtro
             $response = new GetController();
             $response -> getData($routesArray[1]);
 

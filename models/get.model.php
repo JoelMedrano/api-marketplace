@@ -88,8 +88,8 @@ class GetModel{
         //*Relacionar 2 tablas
         if(count($relArray) == 2 && count($typeArray) == 2){
 
-            $on1 = $relArray[0].".id_".$typeArray[0]; 
-            $on2 = $relArray[1].".id_".$typeArray[0]."_".$typeArray[1];
+			$on1 = $relArray[0].".id_".$typeArray[1]."_".$typeArray[0]; 
+			$on2 = $relArray[1].".id_".$typeArray[1];
     
             $stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 WHERE $linkTo = :$linkTo");
 
@@ -125,6 +125,19 @@ class GetModel{
         }
 
         $stmt -> bindParam(":".$linkTo, $equalTo, PDO::PARAM_STR);
+        $stmt -> execute();
+
+        return $stmt -> fetchAll(PDO::FETCH_CLASS);
+
+    }
+
+	//*Peticiones GET para el buscador
+	public function getSearchData($tabla, $linkTo, $equalTo){
+
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $linkTo = :$linkTo");
+
+        $stmt -> bindParam(":".$linkTo, $equalTo, PDO::PARAM_STR);
+
         $stmt -> execute();
 
         return $stmt -> fetchAll(PDO::FETCH_CLASS);
