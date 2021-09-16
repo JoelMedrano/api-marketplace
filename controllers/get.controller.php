@@ -3,9 +3,9 @@
 class GetController{
 
     //*Peticiones GET sin filtro
-    public function getData($tabla){
+    public function getData($table, $orderBy, $orderMode){
 
-        $response = GetModel::getData($tabla);
+        $response = GetModel::getData($table, $orderBy, $orderMode);
 
 		$return = new GetController();
 		$return -> fncResponse($response, "getData");
@@ -13,9 +13,9 @@ class GetController{
     }
 
 	//*Peticiones GET con FILTRO
-	public function getFilterData($tabla, $linkTo, $equalTo){
+	public function getFilterData($table, $linkTo, $equalTo, $orderBy, $orderMode){
 
-        $response = GetModel::getFilterData($tabla, $linkTo, $equalTo);
+        $response = GetModel::getFilterData($table, $linkTo, $equalTo, $orderBy, $orderMode);
 
 		$return = new GetController();
 		$return -> fncResponse($response, "getFilterData");
@@ -23,9 +23,9 @@ class GetController{
     }
 
 	//*Peticiones GET tablas relacionadas sin filtro
-	public function getRelData($rel, $type){
+	public function getRelData($rel, $type, $orderBy, $orderMode){
 
-		$response = GetModel::getRelData($rel, $type);
+		$response = GetModel::getRelData($rel, $type, $orderBy, $orderMode);
 
 		$return = new GetController();
 		$return -> fncResponse($response, "getRelData");
@@ -33,9 +33,9 @@ class GetController{
 	}
 
 	//*Peticiones GET tablas relacionadas con filtro
-	public function getRelFilterData($rel, $type, $linkTo, $equalTo){
+	public function getRelFilterData($rel, $type, $linkTo, $equalTo, $orderBy, $orderMode){
 
-		$response = GetModel::getRelFilterData($rel, $type, $linkTo, $equalTo);
+		$response = GetModel::getRelFilterData($rel, $type, $linkTo, $equalTo, $orderBy, $orderMode);
 
 		$return = new GetController();
 		$return -> fncResponse($response, "getRelFilterData");
@@ -43,9 +43,9 @@ class GetController{
 	}
 
 	//*Peticiones GET para el buscador
-	public function getSearchData($tabla, $linkTo, $equalTo){
+	public function getSearchData($table, $linkTo, $equalTo, $orderBy, $orderMode){
 
-        $response = GetModel::getSearchData($tabla, $linkTo, $equalTo);
+        $response = GetModel::getSearchData($table, $linkTo, $equalTo, $orderBy, $orderMode);
 
 		$return = new GetController();
 		$return -> fncResponse($response, "getSearchData");
