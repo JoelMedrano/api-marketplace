@@ -18,7 +18,7 @@ if(count($routesArray) == 0){
 
 }else{
 
-    //*Peticiones GET
+    //todo: Peticiones GET
     if(count($routesArray) == 1 &&
     isset($_SERVER["REQUEST_METHOD"]) &&
     $_SERVER["REQUEST_METHOD"] == "GET"){
@@ -42,10 +42,23 @@ if(count($routesArray) == 0){
 
 			}
 
-            $response = new GetController();
-            $response -> getFilterData(explode("?", $routesArray[1])[0], $_GET["linkTo"], $_GET["equalTo"], $orderBy, $orderMode);
+            //?Preguntamos si viene variables de limite
+            if(isset($_GET["startAt"]) && isset($_GET["endAt"])){
 
-        //?Peticiones GET entre tablas relacionadas sin filtro
+				$startAt = $_GET["startAt"];
+				$endAt = $_GET["endAt"];
+
+			}else{
+
+				$startAt = null;
+				$endAt = null;
+
+			}
+
+            $response = new GetController();
+            $response -> getFilterData(explode("?", $routesArray[1])[0], $_GET["linkTo"], $_GET["equalTo"], $orderBy, $orderMode, $startAt, $endAt);
+
+        //*Peticiones GET entre tablas relacionadas sin filtro
         }else if(   isset($_GET["rel"]) && 
                     isset($_GET["type"]) && 
                     explode("?", $routesArray[1])[0] == "relations" && 
@@ -65,10 +78,23 @@ if(count($routesArray) == 0){
 
 			}
 
-            $response = new GetController();
-            $response -> getRelData($_GET["rel"], $_GET["type"], $orderBy, $orderMode);
+            //?Preguntamos si viene variables de limite
+            if(isset($_GET["startAt"]) && isset($_GET["endAt"])){
 
-        //?Peticiones GET entre tablas relacionadas con filtro
+				$startAt = $_GET["startAt"];
+				$endAt = $_GET["endAt"];
+
+			}else{
+
+				$startAt = null;
+				$endAt = null;
+
+			}
+
+            $response = new GetController();
+            $response -> getRelData($_GET["rel"], $_GET["type"], $orderBy, $orderMode, $startAt, $endAt);
+
+        //*Peticiones GET entre tablas relacionadas con filtro
         }else if(   isset($_GET["rel"]) && 
                     isset($_GET["type"]) && 
                     explode("?", $routesArray[1])[0] == "relations" && 
@@ -88,10 +114,23 @@ if(count($routesArray) == 0){
 
 			}
 
-            $response = new GetController();
-            $response -> getRelFilterData($_GET["rel"], $_GET["type"], $_GET["linkTo"], $_GET["equalTo"], $orderBy, $orderMode);
+            //?Preguntamos si viene variables de limite
+            if(isset($_GET["startAt"]) && isset($_GET["endAt"])){
 
-        //?Peticiones GET para el buscador
+				$startAt = $_GET["startAt"];
+				$endAt = $_GET["endAt"];
+
+			}else{
+
+				$startAt = null;
+				$endAt = null;
+
+			}
+
+            $response = new GetController();
+            $response -> getRelFilterData($_GET["rel"], $_GET["type"], $_GET["linkTo"], $_GET["equalTo"], $orderBy, $orderMode, $startAt, $endAt);
+
+        //*Peticiones GET para el buscador
         }else if(   isset($_GET["linkTo"]) && 
                     isset($_GET["search"])){
 
@@ -108,10 +147,23 @@ if(count($routesArray) == 0){
 
 			}
 
-            $response = new GetController();
-            $response -> getSearchData(explode("?", $routesArray[1])[0], $_GET["linkTo"], $_GET["search"], $orderBy, $orderMode);
+            //?Preguntamos si viene variables de limite
+            if(isset($_GET["startAt"]) && isset($_GET["endAt"])){
 
-        //?Peticiones sin filtro
+				$startAt = $_GET["startAt"];
+				$endAt = $_GET["endAt"];
+
+			}else{
+
+				$startAt = null;
+				$endAt = null;
+
+			}
+
+            $response = new GetController();
+            $response -> getSearchData(explode("?", $routesArray[1])[0], $_GET["linkTo"], $_GET["search"], $orderBy, $orderMode, $startAt, $endAt);
+
+        //*Peticiones GET sin filtro
         }else{
 
             //!Preguntamos si viene variables de orden
@@ -127,14 +179,27 @@ if(count($routesArray) == 0){
 
 			}
 
+            //?Preguntamos si viene variables de limite
+            if(isset($_GET["startAt"]) && isset($_GET["endAt"])){
+
+				$startAt = $_GET["startAt"];
+				$endAt = $_GET["endAt"];
+
+			}else{
+
+				$startAt = null;
+				$endAt = null;
+
+			}
+
             $response = new GetController();
-            $response -> getData(explode("?", $routesArray[1])[0], $orderBy, $orderMode);
+            $response -> getData(explode("?", $routesArray[1])[0], $orderBy, $orderMode, $startAt, $endAt);
 
         }
 
     }
 
-    //*Peticiones POST
+    //todo: Peticiones POST
     if(count($routesArray) == 1 &&
     isset($_SERVER["REQUEST_METHOD"]) &&
     $_SERVER["REQUEST_METHOD"] == "POST"){
@@ -148,7 +213,7 @@ if(count($routesArray) == 0){
 
     }
 
-    //*Peticiones PUT
+    //todo: Peticiones PUT
     if(count($routesArray) == 1 &&
     isset($_SERVER["REQUEST_METHOD"]) &&
     $_SERVER["REQUEST_METHOD"] == "PUT"){
@@ -162,7 +227,7 @@ if(count($routesArray) == 0){
 
     }  
     
-    //*Peticiones DELETE
+    //todo: Peticiones DELETE
     if(count($routesArray) == 1 &&
     isset($_SERVER["REQUEST_METHOD"]) &&
     $_SERVER["REQUEST_METHOD"] == "DELETE"){
